@@ -81,7 +81,7 @@ namespace SerialPortApp
             Distances[angle] = Convert.ToInt32(splitLine[1]);
 
             if (angle == 0)
-              pbOutput.Invalidate(); // Paint Frame
+              UpdateMap(); // Paint Frame
           }
         }
         catch (Exception except)
@@ -145,6 +145,7 @@ namespace SerialPortApp
         }
       }
 
+
       e.Graphics.DrawLine(Pens.Red, Center.X, 0, Center.X, pbOutput.Height);
       e.Graphics.DrawLine(Pens.Red, 0, Center.Y, pbOutput.Width, Center.Y);
     }
@@ -157,11 +158,17 @@ namespace SerialPortApp
     private void pbOutput_Resize(object sender, EventArgs e)
     {
       UpdateCenter();
+      UpdateMap();
     }
 
     private void UpdateCenter()
     {
       Center = new Point(pbOutput.Width / 2 + DragShift.X + (DragFinal.X - DragInitial.X), pbOutput.Height / 2 + DragShift.Y + (DragFinal.Y - DragInitial.Y));
+    }
+
+    private void UpdateMap()
+    {
+      pbOutput.Invalidate();
     }
 
     private void pbOutput_MouseDown(object sender, MouseEventArgs e)
@@ -171,7 +178,7 @@ namespace SerialPortApp
         DragInitial = new Point(e.X, e.Y);
         DragFinal = new Point(e.X, e.Y);
         UpdateCenter();
-        pbOutput.Invalidate();
+        UpdateMap();
       }
     }
 
@@ -181,7 +188,7 @@ namespace SerialPortApp
       {
         DragFinal = new Point(e.X, e.Y);
         UpdateCenter();
-        pbOutput.Invalidate();
+        UpdateMap();
       }
     }
 
@@ -193,7 +200,7 @@ namespace SerialPortApp
         DragInitial = Point.Empty;
         DragFinal = Point.Empty;
         UpdateCenter();
-        pbOutput.Invalidate();
+        UpdateMap();
       }
     }
   }
