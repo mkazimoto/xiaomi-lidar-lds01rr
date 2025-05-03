@@ -1,4 +1,4 @@
-﻿namespace SerialPortApp
+﻿namespace XiaomiLidarLDS01RR
 {
   partial class FormMain
   {

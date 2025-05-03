@@ -10,13 +10,10 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Diagnostics;
 
-namespace SerialPortApp
+namespace XiaomiLidarLDS01RR
 {
   public partial class FormMain : Form
   {
-    private const int ArraySize = 100;
-    private const int MinReflectivity = 10;
-
     private const double DegreeRadian = Math.PI * 2 / 360;
 
     private Point Center;
@@ -60,6 +57,7 @@ namespace SerialPortApp
       catch (Exception except)
       {
         MessageBox.Show(except.Message);
+        return;
       }
 
       TaskLidar = Task.Run(() => StartLidarLoop());

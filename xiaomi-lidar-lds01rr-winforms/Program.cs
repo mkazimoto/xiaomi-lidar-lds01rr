@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SerialPortApp
+namespace XiaomiLidarLDS01RR
 {
   static class Program
   {
