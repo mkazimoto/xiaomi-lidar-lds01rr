@@ -171,7 +171,8 @@
       this.Controls.Add(this.pbOutput);
       this.Name = "FormMain";
       this.Padding = new System.Windows.Forms.Padding(10);
-      this.Text = "Lidar LDS-006";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+      this.Text = "Xiaomi LIDAR LDS01RR";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
       this.Load += new System.EventHandler(this.FormMain_Load);
       ((System.ComponentModel.ISupportInitialize)(this.pbOutput)).EndInit();
