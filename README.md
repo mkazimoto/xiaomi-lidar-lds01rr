@@ -1,5 +1,5 @@
 # xiaomi-lidar-lds01rr
-Interface Winforms for lidar xiaomi lds01rr or lds02rr and ESP32 (arduino)
+Interface Winforms for lidar xiaomi LDS01RR or LDS02RR and ESP32 (arduino)
 
 arduino ESP32:
 * library: https://github.com/kaiaai/LDS
