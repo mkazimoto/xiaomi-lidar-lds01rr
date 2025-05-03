@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Diagnostics;
 
 namespace SerialPortApp
 {
@@ -48,7 +49,7 @@ namespace SerialPortApp
         SerialPort = new SerialPort((String)cbListSerialPort.SelectedItem);
         SerialPort.BaudRate = 115200;
         SerialPort.ReadTimeout = 5000;
-
+        SerialPort.NewLine = "\r\n";
 
         SerialPort.Open();
 
@@ -69,16 +70,24 @@ namespace SerialPortApp
       StopLidar = false;
       while (!StopLidar)
       {
-        string line = SerialPort.ReadLine().Replace("\r", "");
-        var splitLine = line.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-
-        if (splitLine.Length == 2)
+        try
         {
-          var angle = Convert.ToInt32(splitLine[0]);
-          Distances[angle] = Convert.ToInt32(splitLine[1]);
+          string line = SerialPort.ReadLine();
+          var splitLine = line.Split(':');
 
-          if (angle == 0)
-            pbOutput.Invalidate();
+          if (splitLine.Length == 2)
+          {
+            var angle = Convert.ToInt32(splitLine[0]);
+            Distances[angle] = Convert.ToInt32(splitLine[1]);
+
+            if (angle == 0)
+              pbOutput.Invalidate(); // Paint Frame
+          }
+        }
+        catch (Exception except)
+        {
+          // Ignore exceptions
+          Debug.WriteLine(except.Message);
         }
       }
 
