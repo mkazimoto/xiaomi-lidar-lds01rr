@@ -12,5 +12,9 @@ Pinout:
 ESP32:
 ![1746285175478](https://github.com/user-attachments/assets/c0a78e15-24c1-4ceb-b787-519d98d190e8)
 
+LIDAR LDS01RR:
+![1746286103567](https://github.com/user-attachments/assets/077676c3-6408-4117-8d7d-3be349f4661c)
+
+
 
 
