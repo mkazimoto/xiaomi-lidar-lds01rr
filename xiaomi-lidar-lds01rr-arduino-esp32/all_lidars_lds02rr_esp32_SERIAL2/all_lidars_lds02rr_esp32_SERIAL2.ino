@@ -55,6 +55,8 @@ void setupLidar() {
 }
 
 void setup() {
+  pinMode(2, OUTPUT);
+  
   Serial.begin(SERIAL_MONITOR_BAUD);
 
   Serial.println();
@@ -72,12 +74,27 @@ void setup() {
   Serial.print(", RX GPIO ");
   Serial.println(LIDAR_GPIO_RX);
 
-  LDS::result_t result = lidar->start();
-  Serial.print("startLidar() result: ");
-  Serial.println(lidar->resultCodeToString(result));
+  lidar->setScanTargetFreqHz(0.00f);
+  lidar->stop();
+  
+  // wait for 5 seconds to energize the motor
+  int ledValue = 1;
+  for (int i=0; i < 100; i++) {
+    lidar->loop();
+    delay(50);
+    // blink led
+    if (i % 10 == 0) {
+      digitalWrite(2, ledValue);
+      ledValue = !ledValue;
+    }
+  }
 
   // Set desired rotations-per-second for some LiDAR models
   lidar->setScanTargetFreqHz(4.00f);
+
+  LDS::result_t result = lidar->start();
+  Serial.print("startLidar() result: ");
+  Serial.println(lidar->resultCodeToString(result));
 }
 
 void printByteAsHex(uint8_t b) {
