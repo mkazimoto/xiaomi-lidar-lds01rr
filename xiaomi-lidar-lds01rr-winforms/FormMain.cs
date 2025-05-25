@@ -133,19 +133,30 @@ namespace XiaomiLidarLDS01RR
       {
         if (Distances[angle] > 0)
         {
-          var angleShift = (angle + trackBarRotate.Value) % 360;
+          int x = GetPositionX(Distances[angle], angle);
+          int y = GetPositionY(Distances[angle], angle);
 
-          int x = (int)(Math.Cos(angleShift * DegreeRadian) * Distances[angle] * (double)trackBarZoom.Value / 150d + Center.X);
-          int y = (int)(Math.Sin(angleShift * DegreeRadian) * Distances[angle] * (double)trackBarZoom.Value / 150d + Center.Y);
-
-          e.Graphics.DrawLine(Pens.Gray, Center.X, Center.Y, x, y);
+          e.Graphics.DrawLine(angle % 90 == 0 ? Pens.Red : Pens.Gray, Center.X, Center.Y, x, y);
           e.Graphics.DrawArc(Pens.Lime, x, y, 3, 3, 0, 360);
+
+          if (angle % 90 == 0)
+          {
+            e.Graphics.DrawString($"{angle}º", Font, Brushes.White, GetPositionX(500, angle), GetPositionY(500, angle));
+          } 
         }
       }
+    }
 
+    private int GetPositionY(int distance, int angle)
+    {
+      var angleShift = (angle + trackBarRotate.Value) % 360;
+      return (int)(Math.Sin(angleShift * DegreeRadian) * distance * (double)trackBarZoom.Value / 150d + Center.Y);
+    }
 
-      e.Graphics.DrawLine(Pens.Red, Center.X, 0, Center.X, pbOutput.Height);
-      e.Graphics.DrawLine(Pens.Red, 0, Center.Y, pbOutput.Width, Center.Y);
+    private int GetPositionX(int distance, int angle)
+    {
+      var angleShift = (angle + trackBarRotate.Value) % 360;
+      return (int)(Math.Cos(angleShift * DegreeRadian) * distance * (double)trackBarZoom.Value / 150d + Center.X);
     }
 
     private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
