@@ -63,6 +63,9 @@ namespace XiaomiLidarLDS01RR
       TaskLidar = Task.Run(() => StartLidarLoop());
     }
 
+    /// <summary>
+    /// Thread to read the Lidar data
+    /// </summary>
     private void StartLidarLoop()
     {
       StopLidar = false;
@@ -144,7 +147,7 @@ namespace XiaomiLidarLDS01RR
       for (int angle = 0; angle < 360; angle += 90)
       {
         e.Graphics.DrawLine(Pens.Red, Center.X, Center.Y, GetPositionX(Distances[angle], angle), GetPositionY(Distances[angle], angle));
-        e.Graphics.DrawString($"{angle}º", Font, Brushes.White, GetPositionX(500, angle), GetPositionY(500, angle));
+        e.Graphics.DrawString($"{angle}º - {Distances[angle]}mm", Font, Brushes.White, GetPositionX(500, angle), GetPositionY(500, angle));
       }
     }
 
