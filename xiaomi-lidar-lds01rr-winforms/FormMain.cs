@@ -136,14 +136,15 @@ namespace XiaomiLidarLDS01RR
           int x = GetPositionX(Distances[angle], angle);
           int y = GetPositionY(Distances[angle], angle);
 
-          e.Graphics.DrawLine(angle % 90 == 0 ? Pens.Red : Pens.Gray, Center.X, Center.Y, x, y);
+          e.Graphics.DrawLine(Pens.Gray, Center.X, Center.Y, x, y);
           e.Graphics.DrawArc(Pens.Lime, x, y, 3, 3, 0, 360);
-
-          if (angle % 90 == 0)
-          {
-            e.Graphics.DrawString($"{angle}º", Font, Brushes.White, GetPositionX(500, angle), GetPositionY(500, angle));
-          } 
         }
+      }
+
+      for (int angle = 0; angle < 360; angle += 90)
+      {
+        e.Graphics.DrawLine(Pens.Red, Center.X, Center.Y, GetPositionX(Distances[angle], angle), GetPositionY(Distances[angle], angle));
+        e.Graphics.DrawString($"{angle}º", Font, Brushes.White, GetPositionX(500, angle), GetPositionY(500, angle));
       }
     }
 
